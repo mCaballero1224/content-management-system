@@ -1,0 +1,199 @@
+/* Note to self: fix garbage CSS */
+
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	background-color: #f5f5f5;
+	color: #333;
+}
+
+h1 {
+	padding: 10px;
+}
+
+nav ul {
+	list-style-type: none;
+	padding: 0;
+	display: flex;
+	background-color: #444;
+}
+
+nav ul li {
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li a {
+	display: block;
+	padding: 1em;
+	color: white;
+	text-decoration: none;
+}
+
+nav ul li a:hover {
+	background-color: #555;
+}
+
+.container {
+	max-width: 600px;
+	margin: 20px auto;
+	padding: 20px;
+	background-color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	border-radius: 8px;
+}
+
+h2 {
+	color: #333;
+	margin-bottom: 15px;
+	font-size: 1.5rem;
+}
+
+form, .container {
+	display: flex;
+	flex-direction: column;
+}
+
+form input[type="text"],
+form input[type="email"],
+form textarea {
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 15px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 1rem;
+}
+
+.container textarea {
+	width: 95%;
+	height: 200px;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	font-size: 1rem;
+	resize: vertical;
+}
+
+form button, .container button {
+	background-color: #007bff;
+	color: #fff;
+	padding: 10px 15px;
+	border: none;
+	border-radius: 5px;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+form button:hover {
+	background-color: #0056b3;
+}
+
+p.message {
+	color: green;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+p.error {
+	color: red;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+
+.post-list h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.post-list ul {
+	padding: 0;
+}
+
+.post-list li {
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	background-color: #f9f9f9;
+	list-style: none;
+}
+
+.post-list li h3 {
+	margin: 0;
+	font-size: 20px;
+}
+
+.post-list li p {
+	margin: 5px 0;
+}
+
+.post-list li .post-actions {
+	margin-top: 10px;
+}
+
+.post-list li a, 
+.post-list li button {
+	text-decoration: none;
+	font-weight: bold;
+	padding: 10px 15px;
+	margin-right: 10px;
+}
+
+.post-list li a {
+	background-color: #007bff;
+	color: white;
+	border: none;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+}
+
+.post-list li a:hover {
+	background-color: #0056b3;
+}
+
+.post-list li button {
+	background-color: #dc3545;
+	color: white;
+	border: none;
+	cursor: pointer;
+}
+
+.post-list li button:hover {
+	background-color: #c82333;
+}
+
+.filter-buttons {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 20px;
+}
+
+.filter-button {
+	padding: 8px 12px;
+	border: 1px solid #007BFF;
+	border-radius: 5px;
+	background-color: #f8f9fa;
+	color: #007BFF;
+	font-size: 14px;
+	cursor: pointer;
+	transition: background-color 0.3s, color 0.3s;
+}
+
+.filter-button:hover,
+.filter-button.active {
+	background-color: #007BFF;
+	color: #ffffff;
+}
+
+.post-list {
+	margin-top: 20px;
+}
+
+.component {
+	padding: 10px;
+}
