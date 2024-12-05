@@ -21,6 +21,11 @@ export default defineConfig({
 				changeOrigin: true,
 				rewrite: (path) => path.replace(/^\/api\/crud/, ""),
 			},
+			"/api/analytics": {
+				target: "http://localhost:3004",
+				changeOrigin: true,
+				rewrite: (path) => path.replace(/^\/api\/analytics/, ""),
+			},
 		},
 	},
 });
