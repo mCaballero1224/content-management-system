@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import CreatePost from "./components/CreatePost";
 import PostList from "./components/PostList";
 import UpdatePost from "./components/UpdatePost";
-import MarkdownPreview from "./components/MarkdownPreview";
 import BlogPostView from "./components/BlogPostView";
 import Subscribe from "./components/Subscribe";
+import Analytics from "./components/Analytics";
 
 function App() {
 	return (
@@ -15,8 +15,8 @@ function App() {
 					<ul>
 						<li><Link to="/">Home</Link></li>
 						<li><Link to="/create-post">Create Post</Link></li>
-						<li><Link to="/preview-markdown">Preview Markdown</Link></li>
 						<li><Link to="/subscribe">Subscribe</Link></li>
+						<li><Link to="/analytics">Analytics</Link></li>
 					</ul>
 				</nav>
 				<hr />
@@ -34,14 +34,14 @@ function App() {
 					{/* Update Post route */}
 					<Route path="/posts/update/:postId" element={<UpdatePost />} />
 					
-					{/* Preview Markdown route */}
-					<Route path="/preview-markdown" element={<MarkdownPreview />} />
-					
 					{/* Subscribe route */}
 					<Route path="/subscribe" element={<Subscribe />} />
 					
 					{/* Blog Post View route */}
 					<Route path="/post/:postId" element={<BlogPostView />} />
+					
+					{/* Analytics route */}
+					<Route path="/analytics" element={<Analytics />} />
 				</Routes>
 			</div>
 		</Router>
