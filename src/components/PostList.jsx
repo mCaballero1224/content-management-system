@@ -15,9 +15,8 @@ function PostList() {
 				const response = await axios.get("/api/crud/posts");
 				setPosts(response.data);
 				setFilteredPosts(response.data); // Initially show all posts
-
 				// Extract unique tags from posts
-				const allTags = response.data.flatMap(post => post.tags);
+				const allTags = response.data.flatMap((post) => post.tags);
 				const uniqueTags = [...new Set(allTags)];
 				setTags(uniqueTags);
 			} catch (error) {
@@ -34,7 +33,8 @@ function PostList() {
 			setFilteredPosts(posts);
 		} else {
 			try {
-				const response = await axios.get(`/api/crud/posts/tag/${tag}`);
+				const response = await axios.get(`/api/crud/tag/${tag}`);
+				console.log(response);
 				setFilteredPosts(response.data);
 			} catch (error) {
 				console.error("Error filtering posts by tag:", error);
@@ -42,10 +42,22 @@ function PostList() {
 		}
 	};
 
+	// Delete a post
+	const deletePost = async (postId, analyticsId) => {
+		try {
+			await axios.delete(`/api/crud/posts/${postId}`);
+			await axios.delete(`/api/analytics/${analyticsId}`);
+			// Remove the deleted post from state
+			const updatedPosts = posts.filter((post) => post._id !== postId);
+			setPosts(updatedPosts);
+			setFilteredPosts(updatedPosts);
+		} catch (error) {
+			console.error("Error deleting post:", error);
+		}
+	};
+
 	return (
 		<div className="component">
-			<h2>All Blog Posts</h2>
-			
 			{/* Filter buttons */}
 			<div className="filter-buttons">
 				<button
@@ -65,20 +77,39 @@ function PostList() {
 				))}
 			</div>
 
-			<ul className="post-list">
+			<table className="post-list">
+				<thead>
+					<tr>
+						{/* Create a new post */}
+						<th><Link to="/create-post">New</Link></th>
+						{/* Spacer for edit button */}
+						<th></th>
+						{/* Spacer for delete button */}
+						<th></th>
+						<th>Title</th>
+						<th>Author</th>
+						<th>Tags</th>
+						<th>Created At</th>
+					</tr>
+				</thead>
 				{filteredPosts.map((post) => (
-					<li key={post._id}>
-						<Link to={`/post/${post._id}`}><h3>{post.title}</h3></Link>
-						<p>by {post.author}</p>
-						<p>Tags: {post.tags.join(", ")}</p>
-						{/* Link to the UpdatePost route with the postId */}
-						<Link to={`/posts/update/${post._id}`}>Edit Post</Link>
-					</li>
+					<tr key={post._id}>
+						<td>
+							<Link to={`/post/${post._id}`}>View</Link>
+						</td>
+						<td>Edit</td>
+						<td className="faux-link" onClick={() => deletePost(post._id, post.analyticsId)}>
+							Delete
+						</td>
+						<td>{post.title}</td>
+						<td>{post.author}</td>
+						<td>{post.tags.join(", ")}</td>
+						<td>{post.createdAt}</td>
+					</tr>
 				))}
-			</ul>
+			</table>
 		</div>
 	);
 }
 
 export default PostList;
-
