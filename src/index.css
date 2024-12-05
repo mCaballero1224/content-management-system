@@ -1,199 +1,87 @@
-/* Note to self: fix garbage CSS */
-
 body {
-	font-family: Arial, sans-serif;
-	margin: 0;
-	background-color: #f5f5f5;
-	color: #333;
+	font-family: monospace;
 }
 
-h1 {
-	padding: 10px;
+/* Post view styles */
+.comment-header {
+	color: #344feb;
 }
 
-nav ul {
-	list-style-type: none;
-	padding: 0;
+.stats {
 	display: flex;
-	background-color: #444;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-between;
+	margin: 0 auto;
+	width: 300px;
 }
 
-nav ul li {
-	margin: 0;
+.like-btn {
+	height: 30px;
+	padding: 0;
+	filter: invert(59%) sepia(84%) saturate(1217%) hue-rotate(173deg) brightness(94%) contrast(101%);
+}
+
+.dislike-btn {
+	height: 30px;
+	padding: 0;
+	filter: invert(15%) sepia(88%) saturate(7004%) hue-rotate(359deg) brightness(98%) contrast(114%);
+}
+
+.post-views {
+	height: 30px;
 	padding: 0;
 }
 
-nav ul li a {
-	display: block;
-	padding: 1em;
-	color: white;
-	text-decoration: none;
-}
-
-nav ul li a:hover {
-	background-color: #555;
-}
-
-.container {
-	max-width: 600px;
-	margin: 20px auto;
-	padding: 20px;
-	background-color: #fff;
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-	border-radius: 8px;
-}
-
-h2 {
-	color: #333;
-	margin-bottom: 15px;
-	font-size: 1.5rem;
-}
-
-form, .container {
+/* Create Post Form */
+form {
 	display: flex;
 	flex-direction: column;
-}
-
-form input[type="text"],
-form input[type="email"],
-form textarea {
-	width: 100%;
-	padding: 10px;
-	margin-bottom: 15px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 1rem;
-}
-
-.container textarea {
-	width: 95%;
-	height: 200px;
-	padding: 10px;
-	margin-bottom: 10px;
-	border: 1px solid #ccc;
-	border-radius: 5px;
-	font-size: 1rem;
-	resize: vertical;
-}
-
-form button, .container button {
-	background-color: #007bff;
-	color: #fff;
-	padding: 10px 15px;
-	border: none;
-	border-radius: 5px;
-	font-size: 1rem;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-}
-
-form button:hover {
-	background-color: #0056b3;
-}
-
-p.message {
-	color: green;
-	font-weight: bold;
-	margin-top: 10px;
-}
-
-p.error {
-	color: red;
-	font-weight: bold;
-	margin-top: 10px;
-}
-
-
-.post-list h2 {
-	font-size: 24px;
-	margin-bottom: 20px;
-}
-
-.post-list ul {
-	padding: 0;
-}
-
-.post-list li {
-	margin-bottom: 15px;
-	padding: 10px;
-	border: 1px solid #ddd;
-	border-radius: 5px;
-	background-color: #f9f9f9;
-	list-style: none;
-}
-
-.post-list li h3 {
-	margin: 0;
-	font-size: 20px;
-}
-
-.post-list li p {
-	margin: 5px 0;
-}
-
-.post-list li .post-actions {
-	margin-top: 10px;
-}
-
-.post-list li a, 
-.post-list li button {
-	text-decoration: none;
-	font-weight: bold;
-	padding: 10px 15px;
-	margin-right: 10px;
-}
-
-.post-list li a {
-	background-color: #007bff;
-	color: white;
-	border: none;
-	cursor: pointer;
-	display: inline-block;
-	text-align: center;
-}
-
-.post-list li a:hover {
-	background-color: #0056b3;
-}
-
-.post-list li button {
-	background-color: #dc3545;
-	color: white;
-	border: none;
-	cursor: pointer;
-}
-
-.post-list li button:hover {
-	background-color: #c82333;
-}
-
-.filter-buttons {
-	display: flex;
+	flex-wrap: nowrap;
 	gap: 10px;
-	margin-bottom: 20px;
+}
+
+/* Post List styles */
+.faux-link {
+	text-decoration: underline;
+	color: red;
+	cursor: pointer;
 }
 
 .filter-button {
-	padding: 8px 12px;
-	border: 1px solid #007BFF;
+	font-family: monospace;
 	border-radius: 5px;
-	background-color: #f8f9fa;
-	color: #007BFF;
-	font-size: 14px;
-	cursor: pointer;
-	transition: background-color 0.3s, color 0.3s;
+	border: 1px solid;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	padding: 5px;
+	text-transform: lowercase;
 }
 
-.filter-button:hover,
 .filter-button.active {
-	background-color: #007BFF;
-	color: #ffffff;
+	background-color: blue;
+	color: white;
+	font-weight: bold;
+}
+/* Table Styles */
+table {
+	text-align: left;
+	border-collapse: collapse;
+	width: 90%;
+	overflow: auto;
+	margin: 0 auto;
 }
 
-.post-list {
-	margin-top: 20px;
+thead {
+	border-block-end: 2px solid;
+	background: whitesmoke;
 }
 
-.component {
-	padding: 10px;
+tr {
+	border-bottom: 1px solid;
+}
+
+th, td {
+	border: 1px solid;
+	padding: 0.25rem 0.75rem;
 }
