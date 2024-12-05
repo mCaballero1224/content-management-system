@@ -1,82 +1,107 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
-function CreatePost({ onPostCreated }) {
-	const [title, setTitle] = useState("");
-	const [author, setAuthor] = useState("");
-	const [tags, setTags] = useState("");
-	const [content, setContent] = useState("");
-	const [message, setMessage] = useState("");
+function CreatePost() {
+  /* Component state */
+  // Form data
+  const [formData, setFormData] = useState({
+    title: "",
+    author: "",
+    tags: "",
+    content: "",
+  });
+  /* Value to enable/disable the submit button */
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(""); /* Error message */
+  const crudServiceUrl = "/api/crud"; /* API endpoint */
+  const navigate = useNavigate();
 
-	// CRUD service URL from environment variables
-	const crudServiceUrl = "/api/crud";
+  // Handle form input changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+  // Submit the form data
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    try {
+      /* Send form data to the backend */
+      const newPost = await axios.post(`${crudServiceUrl}/posts`, formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      const newPostId = newPost.data._id;
+      const postPath = `/post/${newPostId}`;
+      if (window.confirm('Post created! Would you like to view the new post?')) {
+        navigate(postPath);
+      } else {
+        setFormData({
+          title: "",
+          author: "",
+          tags: "",
+          content: "",
+        });
+      }
+    } catch (error) {
+      console.error("Error submitting post:", error);
+      setErrorMessage("Failed to create post. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
-		// Convert the content to a Markdown file
-		const blob = new Blob([content], { type: "text/markdown" });
-		const file = new File([blob], "content.md", { type: "text/markdown" });
+  return (
+    <div id="create-post">
+      <h2>Create New Post</h2>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          name="title"
+          placeholder="Title"
+          value={formData.title}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="author"
+          placeholder="Author"
+          value={formData.author}
+          onChange={handleInputChange}
+          required
+        />
+        <input
+          type="text"
+          name="tags"
+          placeholder="Tags (comma-separated)"
+          value={formData.tags}
+          onChange={handleInputChange}
+        />
+        <textarea
+          name="content"
+          placeholder="Write your content here..."
+          value={formData.content}
+          onChange={handleInputChange}
+          rows="10"
+          required
+        ></textarea>
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? "Submitting..." : "Create Post"}
+        </button>
+      </form>
 
-		const formData = new FormData();
-		formData.append("title", title);
-		formData.append("author", author);
-		formData.append("tags", tags);
-		formData.append("content", file);
-
-		try {
-			const response = await axios.post(`${crudServiceUrl}/posts`, formData, {
-				headers: { "Content-Type": "multipart/form-data" },
-			});
-			setMessage("Blog post created successfully!");
-			onPostCreated(response.data.post);
-			setTitle("");
-			setAuthor("");
-			setTags("");
-			setContent("");
-		} catch (error) {
-			console.error("Error creating post:", error);
-			setMessage("Failed to create blog post.");
-		}
-	};
-
-	return (
-		<div className="component">
-			<h2>Create New Post</h2>
-			<form onSubmit={handleSubmit}>
-				<input
-					type="text"
-					placeholder="Title"
-					value={title}
-					onChange={(e) => setTitle(e.target.value)}
-					required
-				/>
-				<input
-					type="text"
-					placeholder="Author"
-					value={author}
-					onChange={(e) => setAuthor(e.target.value)}
-					required
-				/>
-				<input
-					type="text"
-					placeholder="Tags (comma-separated)"
-					value={tags}
-					onChange={(e) => setTags(e.target.value)}
-				/>
-				<textarea
-					placeholder="Write your Markdown content here..."
-					value={content}
-					onChange={(e) => setContent(e.target.value)}
-					rows="10"
-					required
-				></textarea>
-				<button type="submit">Create Post</button>
-			</form>
-			{message && <p>{message}</p>}
-		</div>
-	);
+      {errorMessage && (
+        <p className="error-message">
+          {errorMessage}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default CreatePost;
-
